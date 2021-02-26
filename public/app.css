@@ -1,5 +1,9 @@
+main {
+    background-color: lightgrey;
+}
+
 .card-body {
-    border: 1px solid lightgrey;
+    border: 1px solid darkgrey;
     display: block;
     width: auto;
 }
