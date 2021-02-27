@@ -1,113 +1,70 @@
-import { React } from "react";
+import React, { useState } from "react";
+import Timeline from './components/Timeline';
 
 const App = () => {
-  return (
-    <div className="title">
-      <h1>Welcome to UnderNet!</h1>
-      <main>
-        <form className="form">
-          <label for="name">Username:</label>
-          <br className="break"></br>
-          <input className="full-width" type="text" id="name" name="name"></input>
-          <br className="break"></br>
-          <label for="content"></label>
-          <textarea
-            className="full-width"
-            type="text"
-            id="content"
-            name="content"
-            placeholder="Say something..."
-          ></textarea>
-          <br className="break"></br>
-          <button className="button-primary">Send It</button>
-        </form>
+const [newUsername, setNewUsername] = useState('');
+const [newMsg, setNewMsg] = useState('');
+const [forms, setForms] = useState([{
+  username: '@funnybone',
+  message: 'Hey, @CoolSkeleton95 wanna hear a joke?',
+},
+{
+  username: '@CoolSkleton95',
+  message: 'Sure, Why Not?',
+},
+{
+  username: '@funnybone',
+  message: 'Why did the skeleton go to the restaurant?',
+},
+{
+  username: '@CoolSkeleton95',
+  message: 'Hmmm... I got nothing, why did they go to the restaurant?',
+},
+{
+  username: '@funnybone',
+  message: 'So he could get a BONE meal! ;)',
+},
+{
+  username: '@CoolSkeleton95',
+  message: '*Internal Screaming*'
+},
+]);
 
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="https://icon-library.net//images/sans-icon/sans-icon-23.jpg"
-              width="100"
-            />
-            @funnybone
-          </h5>
-          <p className="card-text">Hey @CoolSkeleton95, wanna hear a joke?</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
+let submitForm = () => {
+  let newForm = {
+  username: newUsername,
+  message: newMsg
+}
+
+setForms([...forms, newForm])
+emptyInputs()
+}
+
+let emptyInputs = () => {
+  setNewUsername('')
+  setNewMsg('')
+}
+
+let myForms = forms.map((form, id) => <Timeline key={id} form={form}/>); 
+
+return (
+  <>
+  <div className="row m-4">
+        <h1>Welcome to Undernet!</h1>
+        <div className="col-2">
+          <input type="text" id="un-input" value={newUsername} placeholder="Username" onChange={(e) => setNewUsername(e.target.value)}></input>
         </div>
-
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="http://pixelartmaker.com/art/72e737cdd6e34dc.png"
-              width="100"
-            />
-            @CoolSkeleton95
-          </h5>
-          <p className="card-text">Sure, Why Not?</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
+        <div className="col-2">
+          <input type="text" id="msg-input"  value={newMsg} placeholder="Say Something..." onChange={(e) => setNewMsg(e.target.value)}></input>
         </div>
-
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="https://icon-library.net//images/sans-icon/sans-icon-23.jpg"
-              width="100"
-            />
-            @funnybone
-          </h5>
-          <p className="card-text">Why did the skeleton go to the restaurant?</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
+        <div className="col-2">
+            <button className="btn btn-primary" onClick={submitForm}>Submit</button>
         </div>
+      </div>
 
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="http://pixelartmaker.com/art/72e737cdd6e34dc.png"
-              width="100"
-            />
-            @CoolSkeleton95
-          </h5>
-          <p className="card-text">Hmmm... I don't know, why did they go to the restaurant?</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
-        </div>
-
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="https://icon-library.net//images/sans-icon/sans-icon-23.jpg"
-              width="100"
-            />
-            @funnybone
-          </h5>
-          <p className="card-text">So he could get a BONE meal!</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
-        </div>
-
-        <div className="card-body">
-          <h5 className="card-Username">
-            <img
-              src="http://pixelartmaker.com/art/72e737cdd6e34dc.png"
-              width="100"
-            />
-            @CoolSkeleton95
-          </h5>
-          <p className="card-text">*INTERNAL SCREAMING*</p>
-          <p className="card-text">
-            <small className="text-muted">Today at 3:00 PM</small>
-          </p>
-        </div>
-
-      </main>
-    </div>
+      {myForms}
+    </>
   );
 };
+
 export default App;

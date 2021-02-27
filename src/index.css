@@ -1,0 +1,8 @@
+body {
+    background-color: lightgrey;
+    text-align: center;
+}
+
+.card.m-5 {
+    border: 1px solid black;
+}
